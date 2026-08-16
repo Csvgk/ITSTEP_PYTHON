@@ -13,7 +13,6 @@ try:
     with open(filename, "r", encoding="utf-8") as f:
         print(f"Файл {filename} існує.")
         lines = f.readlines()
-        # Кожен другий рядок (індекси 1, 3, 5...)
         for i in range(1, len(lines), 2):
             print(lines[i].rstrip("\n"))
 except FileNotFoundError:
@@ -51,7 +50,6 @@ try:
     with open("log.txt", "r", encoding="utf-8") as f:
         text = f.read().lower()
 
-    # Розбиваємо текст на слова (через пробіли та розділові знаки)
     words = []
     current_word = ""
     for ch in text:
@@ -61,10 +59,9 @@ try:
             if current_word:
                 words.append(current_word)
                 current_word = ""
-    if current_word:  # додаємо останнє слово, якщо воно є
+    if current_word:
         words.append(current_word)
 
-    # Підрахунок частоти слів
     freq = {}
     for word in words:
         if word in freq:
@@ -72,7 +69,6 @@ try:
         else:
             freq[word] = 1
 
-    # Сортуємо за частотою (спадання) і беремо 10 найчастіших
     sorted_words = sorted(freq.items(), key=lambda x: x[1], reverse=True)
     top_10 = sorted_words[:10]
 

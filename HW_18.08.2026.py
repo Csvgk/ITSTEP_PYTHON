@@ -22,7 +22,7 @@ class Device:
 class CoffeeMachine(Device):
     def __init__(self, brand, power, color, water_volume):
         super().__init__(brand, power, color)
-        self.water_volume = water_volume  # мл
+        self.water_volume = water_volume
 
     def make_coffee(self):
         if not self.is_on:
@@ -55,7 +55,7 @@ class Blender(Device):
 class MeatGrinder(Device):
     def __init__(self, brand, power, color, attachments):
         super().__init__(brand, power, color)
-        self.attachments = attachments  # кількість насадок
+        self.attachments = attachments
 
     def grind(self):
         if not self.is_on:
@@ -66,7 +66,6 @@ class MeatGrinder(Device):
         return super().get_info() + f" | Кількість насадок: {self.attachments}"
 
 
-# Перевірка Завдання 1
 print("=" * 50)
 print("Завдання 1. Пристрої")
 print("=" * 50)
@@ -93,8 +92,8 @@ print(grinder.grind())
 class Ship:
     def __init__(self, name, displacement, max_speed):
         self.name = name
-        self.displacement = displacement  # водотоннажність (тонн)
-        self.max_speed = max_speed        # вузли
+        self.displacement = displacement
+        self.max_speed = max_speed
         self.is_moving = False
 
     def start_moving(self):
@@ -144,7 +143,7 @@ class Destroyer(Ship):
 class Cruiser(Ship):
     def __init__(self, name, displacement, max_speed, gun_caliber):
         super().__init__(name, displacement, max_speed)
-        self.gun_caliber = gun_caliber  # мм
+        self.gun_caliber = gun_caliber
 
     def fire(self):
         return f"Крейсер {self.name} відкрив вогонь з гармат калібру {self.gun_caliber} мм"
@@ -153,7 +152,6 @@ class Cruiser(Ship):
         return super().get_info() + f" | Калібр гармат: {self.gun_caliber} мм"
 
 
-# Перевірка Завдання 2
 print("\n" + "=" * 50)
 print("Завдання 2. Кораблі")
 print("=" * 50)
@@ -176,17 +174,15 @@ print(cruiser.fire())
 #3
 class Money:
     def __init__(self, whole=0, cents=0):
-        self.whole = whole      # гривні / долари / євро
-        self.cents = cents      # копійки / центи
+        self.whole = whole
+        self.cents = cents
         self._normalize()
 
     def _normalize(self):
-        """Переводить копійки в цілу частину, якщо >= 100"""
         if self.cents >= 100:
             self.whole += self.cents // 100
             self.cents = self.cents % 100
         elif self.cents < 0:
-            # проста обробка від’ємних копійок
             borrow = (-self.cents + 99) // 100
             self.whole -= borrow
             self.cents += borrow * 100
@@ -209,7 +205,6 @@ class Product(Money):
         self.name = name
 
     def reduce_price(self, amount_whole, amount_cents=0):
-        """Зменшує ціну на задану суму"""
         total_cents = self.whole * 100 + self.cents
         reduce_cents = amount_whole * 100 + amount_cents
 
@@ -225,7 +220,6 @@ class Product(Money):
         return f"Товар: {self.name} | Ціна: {self.show()} грн"
 
 
-# Перевірка Завдання 3
 print("\n" + "=" * 50)
 print("Завдання 3. Гроші та товар")
 print("=" * 50)
@@ -236,15 +230,15 @@ print("Сума:", money)
 product = Product("Кава", 89, 50)
 print(product.get_info())
 
-product.reduce_price(10, 25)   # зменшуємо на 10 грн 25 коп
+product.reduce_price(10, 25)
 print("Після знижки:", product.get_info())
 
-product.reduce_price(100)      # спроба зменшити занадто сильно
+product.reduce_price(100)
 print(product.get_info())
 
 #4
 class TemperatureConverter:
-    conversions_count = 0          # лічильник усіх конвертацій
+    conversions_count = 0
 
     @staticmethod
     def celsius_to_fahrenheit(celsius):
@@ -261,7 +255,6 @@ class TemperatureConverter:
         return TemperatureConverter.conversions_count
 
 
-# Перевірка Завдання 4
 print("\n" + "=" * 50)
 print("Завдання 4. Конвертер температури")
 print("=" * 50)
@@ -273,10 +266,6 @@ print("Кількість конвертацій:", TemperatureConverter.get_con
 
 #5
 class LengthConverter:
-    # 1 метр = 3.28084 фути
-    # 1 кілометр = 0.621371 милі
-    # 1 сантиметр = 0.393701 дюйми
-
     @staticmethod
     def meters_to_feet(meters):
         return meters * 3.28084
@@ -302,7 +291,6 @@ class LengthConverter:
         return inches / 0.393701
 
 
-# Перевірка Завдання 5
 print("\n" + "=" * 50)
 print("Завдання 5. Конвертер довжини")
 print("=" * 50)

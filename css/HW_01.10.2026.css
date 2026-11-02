@@ -1,0 +1,162 @@
+/* #7 Власний CSS для HW_01.10.2026.html (працює разом з Bootstrap 5) */
+
+:root {
+    --coffee-dark: #3b2418;
+    --coffee: #6f4e37;
+    --accent: #c87941;
+    --accent-dark: #a9622f;
+    --cream: #fdf8f3;
+    --cream-dark: #f3e1cf;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--coffee-dark);
+    background: var(--cream);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .navbar-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+h2 {
+    color: var(--coffee-dark);
+}
+
+section {
+    /* Щоб fixed navbar не перекривав заголовки при переході за якорем */
+    scroll-margin-top: 70px;
+}
+
+/* Navbar */
+.site-nav {
+    background: rgba(59, 36, 24, 0.95);
+}
+
+.site-nav .nav-link:hover {
+    color: var(--accent) !important;
+}
+
+/* Hero з фоновим зображенням */
+.hero {
+    min-height: 100vh;
+    padding-top: 80px;
+    color: #fff;
+    background:
+        linear-gradient(rgba(30, 15, 8, 0.65), rgba(30, 15, 8, 0.65)),
+        url("https://picsum.photos/id/1060/1600/900") center / cover no-repeat;
+}
+
+.hero h1 {
+    /* Виправлення після поради AI (промпт 2): шрифт масштабується від ширини екрана */
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+/* Кнопки */
+.btn-accent {
+    color: #fff;
+    background: var(--accent);
+    border: 2px solid var(--accent);
+    border-radius: 30px;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+    color: #fff;
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+.hero .btn {
+    border-radius: 30px;
+}
+
+/* Секції */
+.section-alt {
+    background: var(--cream-dark);
+}
+
+.stat {
+    background: #fff;
+    border: 1px solid #e0c9b1;
+    border-radius: 12px;
+}
+
+.stat-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Картки */
+.menu-card,
+.review-card {
+    border: 1px solid #e0c9b1;
+    border-radius: 14px;
+    transition: transform 0.2s;
+}
+
+.menu-card:hover,
+.review-card:hover {
+    transform: translateY(-4px);
+}
+
+.menu-card .card-footer {
+    background: transparent;
+}
+
+.price {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.stars {
+    color: #e0a100;
+    letter-spacing: 2px;
+}
+
+/* Accordion */
+.accordion-button:not(.collapsed) {
+    color: var(--coffee-dark);
+    background: var(--cream-dark);
+}
+
+/* Contact */
+.contact-info {
+    font-style: normal;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e0c9b1;
+}
+
+.contact-info a {
+    color: var(--accent-dark);
+}
+
+.contact-form {
+    background: #fff;
+    border-radius: 14px;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(200, 121, 65, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Footer */
+.footer {
+    color: var(--cream-dark);
+    background: var(--coffee-dark);
+}

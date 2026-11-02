@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кав'ярня «Зерно»</title>
+    <!-- #1 Підключення Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- #7 Власний CSS -->
+    <link rel="stylesheet" href="css/HW_01.10.2026.css">
+</head>
+<body>
+
+<!--
+Домашнє завдання 01.10.2026 — Landing Page кав'ярні на Bootstrap 5
+(вдосконалена версія сайту з HW_29.09.2026)
+
+#4 Використані компоненти Bootstrap (крім Navbar):
+   Cards (меню, відгуки), Buttons, Forms (форма контактів), Accordion (FAQ),
+   Modal (бронювання столика), Alert (акція дня).
+
+#6 Utility-класи та що вони роблять:
+   py-5            — padding зверху і знизу (3rem)
+   mb-4 / mb-3     — margin-bottom (1.5rem / 1rem)
+   mt-3            — margin-top (1rem)
+   text-center     — вирівнювання тексту по центру
+   d-flex          — display: flex
+   gap-3           — відстань між flex/grid-елементами
+   align-items-center, justify-content-center — вирівнювання у flex
+   h-100           — висота 100% (картки однакової висоти в ряду)
+   shadow-sm       — легка тінь
+   fw-bold         — жирний шрифт
+   ms-lg-auto      — margin-left: auto на екранах ≥ 992px (меню праворуч)
+   g-4             — відступи між колонками в row
+
+#9 Робота з AI
+
+Промпт 1 (створення компонента):
+"Створи адаптивну секцію відгуків для сайту кав'ярні за допомогою Bootstrap 5.
+На mobile — 1 картка, tablet — 2, desktop — 3. У кожній картці: ім'я, оцінка
+зірочками і текст відгуку. Картки мають бути однакової висоти."
+Результат: AI запропонував row g-4 з колонками col-12 col-md-6 col-lg-4 і card h-100.
+Що змінив сам: додав 6 відгуків замість 3 (щоб на планшеті було 3 повні ряди по 2),
+кольори зірочок і фон карток узяв зі свого style.css.
+
+Промпт 2 (debugging):
+"На мобільному екрані 375px у мене з'являється горизонтальний скрол. Ось мій HTML
+секції hero і CSS: .hero h1 { font-size: 64px; } і .hero .container { width: 700px; }.
+Проаналізуй, знайди причину і поясни, що потрібно змінити."
+Відповідь AI: фіксована ширина width: 700px більша за ширину екрана 375px,
+тому контент виходить за межі сторінки; також великий шрифт 64px не переноситься.
+Потрібно прибрати фіксовану ширину (Bootstrap .container уже адаптивний),
+а для заголовка використати clamp() або медіазапит.
+Що змінив: видалив width: 700px, для h1 поставив font-size: clamp(2rem, 6vw, 4rem).
+Після цього на 375px горизонтального скролу немає.
+-->
+
+<!-- #3 Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top site-nav">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#hero">☕ Зерно</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Відкрити меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-lg-auto gap-lg-3">
+                <li class="nav-item"><a class="nav-link" href="#hero">Головна</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">Про нас</a></li>
+                <li class="nav-item"><a class="nav-link" href="#menu">Меню</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reviews">Відгуки</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Контакти</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero з фоновим зображенням -->
+    <section id="hero" class="hero d-flex align-items-center text-center">
+        <div class="container">
+            <h1 class="mb-3">Кава, яка робить ранок добрим</h1>
+            <p class="lead mb-4">Обсмажуємо зерно самі та готуємо каву з любов'ю щодня з 8:00 до 21:00.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#menu" class="btn btn-accent btn-lg">Переглянути меню</a>
+                <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#bookingModal">Забронювати столик</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert -->
+    <div class="container mt-3">
+        <div class="alert alert-warning alert-dismissible fade show text-center mb-0" role="alert">
+            <strong>Акція дня:</strong> другий капучино — зі знижкою 50% до 12:00!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрити"></button>
+        </div>
+    </div>
+
+    <!-- #1 Grid: секція About -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-12 col-lg-6">
+                    <h2 class="mb-4">Про нас</h2>
+                    <p>
+                        «Зерно» — невелика кав'ярня в центрі міста, яка працює з 2019 року.
+                        Ми співпрацюємо з фермерами з Ефіопії, Колумбії та Бразилії і обсмажуємо
+                        зерно невеликими партіями, щоб кожна чашка була свіжою.
+                    </p>
+                    <p class="mb-0">
+                        У нас можна випити каву на ходу, попрацювати за ноутбуком або зустрітися з друзями
+                        за свіжою випічкою.
+                    </p>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="row g-3 text-center">
+                        <div class="col-4"><div class="stat p-3"><span class="stat-num">7</span><br>років</div></div>
+                        <div class="col-4"><div class="stat p-3"><span class="stat-num">12</span><br>сортів</div></div>
+                        <div class="col-4"><div class="stat p-3"><span class="stat-num">5★</span><br>рейтинг</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- #2 Адаптивні картки: Mobile 1 / Tablet 2 / Desktop 3 -->
+    <section id="menu" class="py-5 section-alt">
+        <div class="container">
+            <h2 class="text-center mb-4">Меню</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Еспресо</h3>
+                            <p class="card-text">Класичний міцний напій з насиченим смаком і щільною пінкою.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">45 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Капучино</h3>
+                            <p class="card-text">Еспресо з ніжною молочною пінкою. Можна на рослинному молоці.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">65 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Лате</h3>
+                            <p class="card-text">М'яка кава з великою кількістю молока і тонким шаром пінки.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">70 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Круасан</h3>
+                            <p class="card-text">Свіжа французька випічка з вершковим маслом, щоранку з печі.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">55 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Чізкейк</h3>
+                            <p class="card-text">Ніжний десерт на пісочній основі з ягідним соусом.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">95 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm menu-card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Зерно 250 г</h3>
+                            <p class="card-text">Свіжообсмажене зерно власного обсмаження для дому.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <span class="price">320 грн</span>
+                            <a href="#contact" class="btn btn-sm btn-accent">Замовити</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Відгуки (зроблено з допомогою AI, промпт 1) -->
+    <section id="reviews" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Відгуки</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★★</div>
+                            <p class="card-text">«Найкращий капучино в місті! Приходжу щоранку перед роботою.»</p>
+                            <p class="fw-bold mb-0">— Олена</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★★</div>
+                            <p class="card-text">«Затишно, швидкий Wi-Fi і смачні круасани. Ідеально для роботи.»</p>
+                            <p class="fw-bold mb-0">— Андрій</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★☆</div>
+                            <p class="card-text">«Привітні бариста, завжди підкажуть, яке зерно спробувати.»</p>
+                            <p class="fw-bold mb-0">— Марія</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★★</div>
+                            <p class="card-text">«Замовляли каву на корпоратив — все привезли вчасно і гаряче.»</p>
+                            <p class="fw-bold mb-0">— Ігор</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★★</div>
+                            <p class="card-text">«Чізкейк просто неймовірний, раджу всім!»</p>
+                            <p class="fw-bold mb-0">— Ірина</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 review-card">
+                        <div class="card-body">
+                            <div class="stars mb-2">★★★★☆</div>
+                            <p class="card-text">«Купую тут зерно додому — аромат на всю квартиру.»</p>
+                            <p class="fw-bold mb-0">— Дмитро</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accordion: FAQ -->
+    <section id="faq" class="py-5 section-alt">
+        <div class="container">
+            <h2 class="text-center mb-4">Часті питання</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
+                                aria-expanded="true" aria-controls="faq1">Чи є у вас рослинне молоко?</button>
+                    </h3>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Так: вівсяне, мигдальне та кокосове — без доплати.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">Чи можна прийти з собакою?</button>
+                    </h3>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Звісно! Для гостей на чотирьох лапах є миска з водою і смаколики.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">Чи робите ви доставку?</button>
+                    </h3>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Так, у межах центру міста через службу доставки, від 200 грн.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- #1 Grid + #5 Contact Form -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Контакти</h2>
+            <div class="row g-4">
+                <div class="col-12 col-lg-4">
+                    <address class="contact-info p-4 h-100">
+                        <p><strong>Адреса:</strong><br>м. Київ, вул. Хрещатик, 10</p>
+                        <p><strong>Телефон:</strong><br><a href="tel:+380501234567">+38 (050) 123-45-67</a></p>
+                        <p><strong>Email:</strong><br><a href="mailto:hello@zerno.ua">hello@zerno.ua</a></p>
+                        <p class="mb-0"><strong>Графік:</strong><br>щодня 8:00 – 21:00</p>
+                    </address>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <form class="contact-form p-4 shadow-sm" action="#" method="post">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="name" class="form-label">Ім'я</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Ваше ім'я" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+380..." required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="service" class="form-label">Послуга</label>
+                                <select class="form-select" id="service" name="service" required>
+                                    <option value="">Оберіть послугу</option>
+                                    <option value="table">Бронювання столика</option>
+                                    <option value="catering">Кава на захід (кейтеринг)</option>
+                                    <option value="beans">Замовлення зерна</option>
+                                    <option value="other">Інше</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Повідомлення</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Ваше повідомлення"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="agree" name="agree" required>
+                                    <label class="form-check-label" for="agree">Я погоджуюсь з умовами обробки персональних даних</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-accent">Надіслати</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer py-4 text-center">
+    <div class="container">
+        <p class="mb-0">© 2026 Кав'ярня «Зерно». Усі права захищено.</p>
+    </div>
+</footer>
+
+<!-- Modal: бронювання столика -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="bookingModalLabel">Бронювання столика</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="bookName" class="form-label">Ім'я</label>
+                        <input type="text" class="form-control" id="bookName" required>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label for="bookDate" class="form-label">Дата</label>
+                            <input type="date" class="form-control" id="bookDate" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="bookGuests" class="form-label">Гостей</label>
+                            <input type="number" class="form-control" id="bookGuests" min="1" max="10" value="2" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="submit" class="btn btn-accent">Забронювати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'city/base.html' %}
+{% load static %}
+{% block title %}Історичні фото{% endblock %}
+{% block content %}
+<h1>Історичні фотографії Києва</h1>
+{% include 'city/history_nav.html' %}
+<div class="gallery">
+    {% for src, caption in photos %}
+    <figure class="card photo">
+        <img src="{% static src %}" alt="{{ caption }}">
+        <figcaption>{{ caption }}</figcaption>
+    </figure>
+    {% endfor %}
+</div>
+<p class="muted">Джерело фото: Wikimedia Commons (суспільне надбання).</p>
+{% endblock %}

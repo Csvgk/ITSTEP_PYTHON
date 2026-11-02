@@ -1,0 +1,15 @@
+{% extends 'sport/base.html' %}
+{% block content %}
+<section class="hero">
+    <h1>Спортивний портал SportLife</h1>
+    <p>Обирай вид спорту, щоб дізнатися правила, факти та відомі команди.</p>
+</section>
+<div class="cards">
+    {% for url_name, title, text in sports %}
+    <a class="card" href="{% url url_name %}">
+        <h2>{{ title }}</h2>
+        <p>{{ text }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

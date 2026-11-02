@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ day_name }}</title>
+    <link rel="stylesheet" href="{% static 'weekday/style.css' %}">
+</head>
+<body class="{{ css_class }}">
+<main class="box">
+    <p class="date">Сьогодні {{ date|date:"d.m.Y" }}</p>
+    <div class="emoji">{{ emoji }}</div>
+    <h1>{{ day_name }}</h1>
+    <nav class="days">
+        {% for number, name in days %}
+        <a href="?day={{ number }}">{{ name }}</a>
+        {% endfor %}
+        <a href="{% url 'weekday:index' %}">Сьогодні</a>
+    </nav>
+</main>
+</body>
+</html>

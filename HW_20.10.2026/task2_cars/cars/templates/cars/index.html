@@ -1,0 +1,16 @@
+{% extends 'cars/base.html' %}
+{% block content %}
+<section class="hero">
+    <h1>Світ автомобілів</h1>
+    <p>Коротко про відомі автомобільні бренди.</p>
+</section>
+<div class="cards">
+    {% for url_name, name, country, text in brands %}
+    <a class="card" href="{% url url_name %}">
+        <h2>{{ name }}</h2>
+        <p class="muted">{{ country }}</p>
+        <p>{{ text }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

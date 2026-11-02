@@ -1,0 +1,26 @@
+{% extends 'sport/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>{{ icon }} {{ title }}</h1>
+    <p>{{ description }}</p>
+</section>
+<div class="cards">
+    <div class="card">
+        <h2>Цікаві факти</h2>
+        <ul>
+            {% for fact in facts %}
+            <li>{{ fact }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card">
+        <h2>Відомі команди</h2>
+        <ul>
+            {% for team in teams %}
+            <li>{{ team }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

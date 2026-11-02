@@ -1,0 +1,39 @@
+* { box-sizing: border-box; }
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-size: cover;
+}
+/* Кожному дню — свій фон */
+.monday    { background: linear-gradient(135deg, #485563, #29323c); }
+.tuesday   { background: linear-gradient(135deg, #2193b0, #6dd5ed); }
+.wednesday { background: linear-gradient(135deg, #f7971e, #ffd200); }
+.thursday  { background: linear-gradient(135deg, #7f00ff, #e100ff); }
+.friday    { background: linear-gradient(135deg, #f953c6, #b91d73); }
+.saturday  { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.sunday    { background: linear-gradient(135deg, #0f2027, #2c5364); }
+.box {
+    width: 90%;
+    max-width: 560px;
+    padding: 40px 30px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+.emoji { font-size: 80px; }
+h1 { margin: 10px 0 20px; font-size: 56px; }
+.date { margin: 0; opacity: 0.85; }
+.days { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.days a {
+    padding: 6px 12px;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+}
+.days a:hover { background: rgba(255, 255, 255, 0.2); }

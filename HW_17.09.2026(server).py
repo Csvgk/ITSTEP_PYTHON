@@ -1,30 +1,44 @@
 import socket
 import threading
 
+# Подія "чат завершено": її ставить той потік, який першим побачив exit
+chat_over = threading.Event()
+
 
 def receive_messages(conn):
-    while True:
+    while not chat_over.is_set():
         try:
             data = conn.recv(1024)
         except OSError:
             break
         if not data:
-            print("Клієнт закрив з'єднання")
+            # Якщо ми самі завершили чат, повідомлення не потрібне
+            if not chat_over.is_set():
+                print("Клієнт закрив з'єднання")
             break
         message = data.decode()
         if message.strip().lower() == "exit":
-            print("Клієнт завершив чат")
+            print("Клієнт завершив чат. Натисніть Enter для виходу")
             break
         print(f"Клієнт: {message}")
+    chat_over.set()
 
 
 def send_messages(conn):
     while True:
         message = input()
-        conn.sendall(message.encode())
+        # Якщо співрозмовник уже вийшов, нічого не надсилаємо
+        if chat_over.is_set():
+            break
+        try:
+            conn.sendall(message.encode())
+        except OSError:
+            print("Не вдалося надіслати повідомлення, з'єднання розірвано")
+            break
         if message.strip().lower() == "exit":
             print("Ви завершили чат")
             break
+    chat_over.set()
 
 
 def main():
@@ -38,18 +52,26 @@ def main():
     print(f"Сервер очікує підключення на {host}:{port}...")
 
     conn, address = server_socket.accept()
-    print(f"Клієнт підключився: {address}")
+    print(f"Клієнт підключився: {address}. Введіть 'exit' для виходу")
 
     receive_thread = threading.Thread(target=receive_messages, args=(conn,))
     receive_thread.start()
 
-    send_messages(conn)
-
-    receive_thread.join(timeout=2)
-
-    conn.close()
-    server_socket.close()
-    print("Сервер завершив роботу")
+    try:
+        send_messages(conn)
+    except (KeyboardInterrupt, EOFError):
+        print("\nЧат перервано")
+    finally:
+        chat_over.set()
+        # shutdown розблоковує recv() у потоці прийому, потім закриваємо сокети
+        try:
+            conn.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass
+        receive_thread.join()
+        conn.close()
+        server_socket.close()
+        print("Сервер завершив роботу")
 
 
 if __name__ == "__main__":

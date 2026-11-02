@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="eyebrow mb-3">ПРОФІЛЬ АВТОРА</div>
+<h1 class="article-title">{{ author.get_full_name|default:author.username }}</h1>
+<p class="byline">@{{ author.username }} · на сайті з {{ author.date_joined|date:"d.m.Y" }}</p>
+
+{% if profile %}
+<div class="sidebar-card">
+    {% if profile.city %}<p>Місто: {{ profile.city }}</p>{% endif %}
+    {% if profile.birth_date %}<p>Дата народження: {{ profile.birth_date|date:"d.m.Y" }}</p>{% endif %}
+    {% if profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
+</div>
+{% endif %}
+
+<h3 class="mt-4">Публікації автора ({{ posts|length }})</h3>
+{% for post in posts %}
+<section class="post-card">
+    <h2 class="post-title"><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+    <p class="byline">{{ post.category.name }} · {{ post.published_date|date:"d.m.Y" }}</p>
+    <a class="btn btn-accent" href="{% url 'blog:post_detail' post.id %}">Читати далі →</a>
+</section>
+{% empty %}
+<p>У цього автора ще немає публікацій.</p>
+{% endfor %}
+
+<a class="btn btn-accent" href="{% url 'blog:index' %}">← Назад до блогу</a>
+{% endblock %}

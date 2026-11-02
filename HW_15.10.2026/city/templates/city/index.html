@@ -1,0 +1,16 @@
+{% extends 'city/base.html' %}
+{% block title %}Головна{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Ласкаво просимо до міста {{ city }}!</h1>
+    <p>Столиця України, одне з найстаріших міст Європи, розташоване на берегах Дніпра.</p>
+</section>
+<div class="cards">
+    {% for url_name, title, text in sections %}
+    <a class="card card-link" href="{% url url_name %}">
+        <h2>{{ title }}</h2>
+        <p>{{ text }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

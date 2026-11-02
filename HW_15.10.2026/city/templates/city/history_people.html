@@ -1,0 +1,15 @@
+{% extends 'city/base.html' %}
+{% block title %}Відомі мешканці{% endblock %}
+{% block content %}
+<h1>Відомі мешканці Києва</h1>
+{% include 'city/history_nav.html' %}
+<div class="cards">
+    {% for person in people %}
+    <div class="card">
+        <h2>{{ person.name }}</h2>
+        <p class="muted">{{ person.years }}</p>
+        <p>{{ person.text }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

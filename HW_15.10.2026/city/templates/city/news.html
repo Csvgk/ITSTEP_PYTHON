@@ -1,0 +1,12 @@
+{% extends 'city/base.html' %}
+{% block title %}Новини міста{% endblock %}
+{% block content %}
+<h1>Новини міста</h1>
+{% for item in news_list %}
+<article class="card">
+    <p class="muted">{{ item.date }}</p>
+    <h2>{{ item.title }}</h2>
+    <p>{{ item.text }}</p>
+</article>
+{% endfor %}
+{% endblock %}

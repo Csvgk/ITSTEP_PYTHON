@@ -1,0 +1,10 @@
+{% extends 'city/base.html' %}
+{% block title %}Факти про місто{% endblock %}
+{% block content %}
+<h1>Факти про місто</h1>
+<ol class="card facts">
+    {% for fact in facts_list %}
+    <li>{{ fact }}</li>
+    {% endfor %}
+</ol>
+{% endblock %}

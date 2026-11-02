@@ -1,0 +1,13 @@
+{% extends 'city/base.html' %}
+{% block title %}Контакти{% endblock %}
+{% block content %}
+<h1>Контактні телефони міських служб</h1>
+<table class="card table">
+    {% for name, phone in services %}
+    <tr>
+        <td>{{ name }}</td>
+        <td><a href="tel:{{ phone }}">{{ phone }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

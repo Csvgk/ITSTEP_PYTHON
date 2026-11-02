@@ -1,0 +1,14 @@
+{% extends 'city/base.html' %}
+{% block title %}Голови міста{% endblock %}
+{% block content %}
+<h1>Голови міста</h1>
+<div class="cards">
+    {% for head in heads %}
+    <div class="card">
+        <h2>{{ head.name }}</h2>
+        <p class="muted">{{ head.years }}</p>
+        <p>{{ head.text }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Головна{% endblock %} | SportLife</title>
+    <link rel="stylesheet" href="{% static 'sport/style.css' %}">
+</head>
+<body>
+<header class="header">
+    <div class="container header-inner">
+        <a class="logo" href="{% url 'sport:index' %}">SportLife</a>
+        <nav class="nav">
+            <a href="{% url 'sport:index' %}">Головна</a>
+            <a href="{% url 'sport:football' %}">Футбол</a>
+            <a href="{% url 'sport:hockey' %}">Хокей</a>
+            <a href="{% url 'sport:basketball' %}">Баскетбол</a>
+        </nav>
+    </div>
+</header>
+<main class="container main">
+    {% block content %}{% endblock %}
+</main>
+<footer class="footer">© 2026 SportLife</footer>
+</body>
+</html>

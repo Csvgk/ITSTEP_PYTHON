@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Головна{% endblock %} | AutoWorld</title>
+    <link rel="stylesheet" href="{% static 'cars/style.css' %}">
+</head>
+<body class="{% block theme %}{% endblock %}">
+<header class="header">
+    <div class="container header-inner">
+        <a class="logo" href="{% url 'cars:index' %}">🚗 AutoWorld</a>
+        <nav class="nav">
+            <a href="{% url 'cars:index' %}">Головна</a>
+            <a href="{% url 'cars:toyota' %}">Тойота</a>
+            <a href="{% url 'cars:honda' %}">Хонда</a>
+            <a href="{% url 'cars:renault' %}">Рено</a>
+        </nav>
+    </div>
+</header>
+<main class="container main">
+    {% block content %}{% endblock %}
+</main>
+<footer class="footer">© 2026 AutoWorld</footer>
+</body>
+</html>

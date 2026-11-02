@@ -1,0 +1,23 @@
+{% extends 'cars/base.html' %}
+{% block title %}{{ brand }}{% endblock %}
+{% block theme %}{{ theme }}{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>{{ brand }}</h1>
+    <p>Країна: {{ country }} · Заснована у {{ founded }} році</p>
+</section>
+<div class="cards">
+    <div class="card">
+        <h2>Про бренд</h2>
+        <p>{{ about }}</p>
+    </div>
+    <div class="card">
+        <h2>Популярні моделі</h2>
+        <ul>
+            {% for model in models %}
+            <li>{{ model }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

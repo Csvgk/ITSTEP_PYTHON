@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кав'ярня «Зерно»</title>
+    <!-- #2 Підключення CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- #1
+Робота з ШІ (планування структури сайту)
+
+Промпт:
+"Допоможи спланувати структуру односторінкового сайту для кав'ярні на чистому HTML,
+без CSS і Bootstrap. Потрібні: header з назвою, nav мінімум з 4 посиланнями-якорями,
+Hero із заголовком, текстом і кнопкою, About, Services/Products (мінімум 3 елементи),
+ще одна секція на вибір, Contact і footer. Використай семантичні теги."
+
+Що запропонував ШІ:
+- header з логотипом-назвою і nav з якорями на #about, #menu, #reviews, #contact;
+- Hero у тезі section з h1, абзацом і посиланням "Переглянути меню" (href="#menu");
+- About з історією кав'ярні;
+- Products у вигляді списку з 3 позицій меню;
+- секцію "Галерея" з картинками;
+- Contact з адресою, телефоном і графіком роботи;
+- footer з копірайтом.
+
+Що я змінив самостійно:
+- замість галереї зробив секцію "Відгуки" (blockquote) - не потрібні зовнішні картинки;
+- позиції меню оформив через article з h3, описом і ціною, а не простим списком,
+  щоб потім кожну зробити карткою;
+- додав у nav посилання "Головна" (#hero), всього 5 посилань;
+- у Contact використав тег address і посилання tel: та mailto:.
+-->
+
+<header class="header">
+    <div class="container header__inner">
+        <a href="#hero" class="logo">☕ Зерно</a>
+        <nav class="nav">
+            <a href="#hero">Головна</a>
+            <a href="#about">Про нас</a>
+            <a href="#menu">Меню</a>
+            <a href="#reviews">Відгуки</a>
+            <a href="#contact">Контакти</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1>Кава, яка робить ранок добрим</h1>
+            <p>Обсмажуємо зерно самі та готуємо каву з любов'ю щодня з 8:00 до 21:00.</p>
+            <a href="#menu" class="btn">Переглянути меню</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>Про нас</h2>
+            <p>
+                «Зерно» — невелика кав'ярня в центрі міста, яка працює з 2019 року.
+                Ми співпрацюємо з фермерами з Ефіопії, Колумбії та Бразилії і обсмажуємо
+                зерно невеликими партіями, щоб кожна чашка була свіжою.
+            </p>
+            <p>
+                У нас можна випити каву на ходу, попрацювати за ноутбуком або зустрітися з друзями
+                за свіжою випічкою.
+            </p>
+        </div>
+    </section>
+
+    <section id="menu" class="section section--alt">
+        <div class="container">
+            <h2>Меню</h2>
+            <div class="cards">
+                <article class="card">
+                    <h3>Еспресо</h3>
+                    <p>Класичний міцний напій з насиченим смаком і щільною пінкою.</p>
+                    <p class="card__price">45 грн</p>
+                </article>
+                <article class="card">
+                    <h3>Капучино</h3>
+                    <p>Еспресо з ніжною молочною пінкою. Можна на рослинному молоці.</p>
+                    <p class="card__price">65 грн</p>
+                </article>
+                <article class="card">
+                    <h3>Круасан</h3>
+                    <p>Свіжа французька випічка з вершковим маслом, щоранку з печі.</p>
+                    <p class="card__price">55 грн</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="section">
+        <div class="container">
+            <h2>Відгуки</h2>
+            <div class="cards">
+                <blockquote class="review">
+                    <p>«Найкращий капучино в місті! Приходжу щоранку перед роботою.»</p>
+                    <cite>— Олена</cite>
+                </blockquote>
+                <blockquote class="review">
+                    <p>«Затишно, швидкий Wi-Fi і смачні круасани. Ідеально для роботи.»</p>
+                    <cite>— Андрій</cite>
+                </blockquote>
+                <blockquote class="review">
+                    <p>«Привітні бариста, завжди підкажуть, яке зерно спробувати.»</p>
+                    <cite>— Марія</cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section section--alt">
+        <div class="container">
+            <h2>Контакти</h2>
+            <address class="contact-info">
+                <p>Адреса: м. Київ, вул. Хрещатик, 10</p>
+                <p>Телефон: <a href="tel:+380501234567">+38 (050) 123-45-67</a></p>
+                <p>Email: <a href="mailto:hello@zerno.ua">hello@zerno.ua</a></p>
+                <p>Графік: щодня 8:00 – 21:00</p>
+            </address>
+
+            <!-- #2 Форма зворотного зв'язку -->
+            <form class="form" action="#" method="post">
+                <label for="name">Ім'я</label>
+                <input type="text" id="name" name="name" placeholder="Ваше ім'я" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" placeholder="+380..." required>
+
+                <label for="service">Послуга</label>
+                <select id="service" name="service" required>
+                    <option value="">Оберіть послугу</option>
+                    <option value="table">Бронювання столика</option>
+                    <option value="catering">Кава на захід (кейтеринг)</option>
+                    <option value="beans">Замовлення зерна</option>
+                    <option value="other">Інше</option>
+                </select>
+
+                <label for="message">Повідомлення</label>
+                <textarea id="message" name="message" rows="5" placeholder="Ваше повідомлення"></textarea>
+
+                <label class="form__check">
+                    <input type="checkbox" name="agree" required>
+                    Я погоджуюсь з умовами обробки персональних даних
+                </label>
+
+                <button type="submit" class="btn">Надіслати</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Кав'ярня «Зерно». Усі права захищено.</p>
+    </div>
+</footer>
+
+<!-- #2
+Робота з ШІ (пошук і виправлення проблеми в HTML/CSS)
+
+Промпт:
+"Ось мій HTML і CSS сайту кав'ярні. Header зроблений position: sticky.
+Коли я натискаю на посилання в меню, заголовок секції ховається під шапкою.
+Знайди причину і підкажи, як виправити."
+
+Відповідь/рекомендація ШІ:
+Браузер прокручує сторінку так, щоб верх секції був на самому верху вікна,
+але sticky-header перекриває цю частину. Потрібно додати секціям відступ
+для прокрутки: scroll-margin-top, рівний висоті шапки (приблизно 70px).
+Також можна додати html { scroll-behavior: smooth; } для плавної прокрутки.
+
+Що я змінив у коді:
+- у css/style.css додав для section правило scroll-margin-top: 70px;
+- додав html { scroll-behavior: smooth; }.
+-->
+
+</body>
+</html>

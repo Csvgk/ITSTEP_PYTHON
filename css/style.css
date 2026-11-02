@@ -1,0 +1,254 @@
+/* #2 Стилі для HW_29.09.2026.html */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Плавна прокрутка до якорів (виправлення після поради ШІ) */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3b2a20;
+    background: #fdf8f3;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+    color: #4a2c1a;
+}
+
+h1 {
+    font-size: 44px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+a {
+    color: #a0522d;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #4a2c1a;
+    padding: 15px 0;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fdf8f3;
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.nav a {
+    color: #f3e1cf;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Hero */
+.hero {
+    padding: 120px 0;
+    text-align: center;
+    color: #fdf8f3;
+    background: linear-gradient(rgba(40, 20, 10, 0.75), rgba(40, 20, 10, 0.75)), #6f4e37;
+}
+
+.hero h1 {
+    color: #fdf8f3;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 20px;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 18px;
+    color: #ffffff;
+    background: #c87941;
+    border: 2px solid #c87941;
+    border-radius: 30px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: transparent;
+    color: #c87941;
+}
+
+/* Секції */
+section {
+    /* Виправлення після поради ШІ: sticky-header не перекриває заголовок секції */
+    scroll-margin-top: 70px;
+}
+
+.section {
+    padding: 70px 0;
+}
+
+.section--alt {
+    background: #f3e1cf;
+}
+
+/* Картки Services/Products та відгуки */
+.cards {
+    display: flex;
+    gap: 24px;
+}
+
+.card,
+.review {
+    flex: 1;
+    margin: 0;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e0c9b1;
+    border-radius: 12px;
+}
+
+.card__price {
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #c87941;
+}
+
+.review p {
+    font-style: italic;
+}
+
+.review cite {
+    color: #8a6a55;
+}
+
+/* Contact */
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-style: normal;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e0c9b1;
+    border-radius: 12px;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    border: 1px solid #c9ad93;
+    border-radius: 8px;
+}
+
+.form .form__check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form .form__check input {
+    width: auto;
+    margin: 0;
+}
+
+.form .btn {
+    align-self: flex-start;
+}
+
+/* Footer */
+.footer {
+    padding: 25px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #f3e1cf;
+    background: #4a2c1a;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Адаптивність: на мобільному картки в стовпчик */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .header__inner {
+        flex-direction: column;
+    }
+
+    .nav {
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .hero {
+        padding: 80px 0;
+    }
+
+    .cards {
+        flex-direction: column;
+    }
+}

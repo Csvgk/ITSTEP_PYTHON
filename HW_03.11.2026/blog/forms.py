@@ -3,7 +3,6 @@ from django import forms
 from .models import Comment, Subscriber
 
 
-# #2 Форма коментаря
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -19,7 +18,6 @@ class CommentForm(forms.ModelForm):
             },
         }
 
-    # #5 Валідація
     def clean_text(self):
         text = self.cleaned_data.get('text', '').strip()
         if not text:
@@ -31,7 +29,6 @@ class CommentForm(forms.ModelForm):
         return text
 
 
-# Додаткове: форма підписки
 class SubscribeForm(forms.ModelForm):
     class Meta:
         model = Subscriber

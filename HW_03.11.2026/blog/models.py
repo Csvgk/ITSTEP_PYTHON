@@ -14,7 +14,6 @@ class Category(models.Model):
         verbose_name_plural = 'Категорії'
 
 
-# #1 Модель Tag
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name='Назва')
 
@@ -33,7 +32,6 @@ class Post(models.Model):
     published_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публікації')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категорія')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
-    # #1 Зв'язок "багато до багатьох": у поста багато тегів, тег може бути в багатьох постах
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts', verbose_name='Теги')
 
     def __str__(self):
@@ -45,7 +43,6 @@ class Post(models.Model):
         verbose_name_plural = 'Публікації'
 
 
-# #2 Профіль користувача
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name='Користувач')
     bio = models.TextField(blank=True, verbose_name='Про себе')
@@ -60,7 +57,6 @@ class Profile(models.Model):
         verbose_name_plural = 'Профілі'
 
 
-# #1 Коментарі
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Публікація')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='Автор')
@@ -76,7 +72,6 @@ class Comment(models.Model):
         verbose_name_plural = 'Коментарі'
 
 
-# Додаткове: підписка на новини
 class Subscriber(models.Model):
     email = models.EmailField(unique=True, verbose_name='Email')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата підписки')

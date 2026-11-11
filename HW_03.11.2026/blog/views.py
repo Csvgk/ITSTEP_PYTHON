@@ -19,20 +19,17 @@ def sidebar_context():
     }
 
 
-# #1 Головна сторінка: пости з бази через ORM
 def index(request):
     posts = Post.objects.select_related('category', 'user').prefetch_related('tags')
     context = {'posts': posts, **sidebar_context()}
     return render(request, 'blog/index.html', context)
 
 
-# #2 Сторінка окремого поста
 def post_detail(request, post_id):
     post = get_object_or_404(
         Post.objects.select_related('category', 'user').prefetch_related('tags'), id=post_id
     )
 
-    # #3 Додавання коментаря
     form = CommentForm()
     if request.method == 'POST':
         if not request.user.is_authenticated:
@@ -46,13 +43,11 @@ def post_detail(request, post_id):
             messages.success(request, 'Коментар опубліковано.')
             return redirect('blog:post_detail', post_id=post.id)
 
-    # #4 Коментарі, нові зверху
     comments = post.comments.select_related('author')
     context = {'post': post, 'comments': comments, 'form': form, **sidebar_context()}
     return render(request, 'blog/post_detail.html', context)
 
 
-# #3 Сторінка профілю автора
 def profile_detail(request, user_id):
     author = get_object_or_404(User, id=user_id)
     posts = author.post_set.select_related('category')
@@ -65,7 +60,6 @@ def contact(request):
     return render(request, 'blog/contact.html', sidebar_context())
 
 
-# Додаткове: підписка на новини
 @require_POST
 def subscribe(request):
     form = SubscribeForm(request.POST)

@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Post, Category, Tag, Profile, Comment, Subscriber
 
 
-# #3 Налаштування адмінки для публікацій
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'user', 'published_date', 'content_length']
@@ -24,7 +23,6 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
-# #1 Реєстрація Tag
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
@@ -32,14 +30,12 @@ class TagAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
-# #2 Реєстрація Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'city', 'birth_date']
     search_fields = ['user__username', 'city']
 
 
-# #3 Реєстрація Comment
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['author', 'post', 'created_at', 'text']

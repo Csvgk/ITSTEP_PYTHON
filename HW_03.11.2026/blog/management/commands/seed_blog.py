@@ -5,7 +5,6 @@ from django.core.management.base import BaseCommand
 
 from blog.models import Category, Comment, Post, Profile, Tag
 
-# Тестові облікові записи (тільки для локальної перевірки ДЗ)
 ADMIN = ('admin', 'admin12345')
 USERS = [
     ('olena', 'olena12345', {'bio': 'Пишу про подорожі та каву.', 'city': 'Львів', 'birth_date': date(2001, 5, 14)}),
